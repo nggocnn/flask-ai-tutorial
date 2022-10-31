@@ -53,6 +53,8 @@ def generate_untargeted_adversary(model, image, label, epsilon=0.01, epochs=100)
     adv_preds = []
     adv_img = image
 
+    print(np.max(adv_img))
+
     loss_object = tf.keras.losses.CategoricalCrossentropy()
     model = PretrainedModel().get_pretrained_model()
 
@@ -67,6 +69,7 @@ def generate_untargeted_adversary(model, image, label, epsilon=0.01, epochs=100)
 
         adv_img = adv_img + gradient_sign * epsilon
         adv_pred = model.predict(adv_img)
+        print(np.max(adv_img))
 
         adv_preds.append(adv_pred)
 

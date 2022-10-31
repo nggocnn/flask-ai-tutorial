@@ -147,12 +147,12 @@ def attack():
 
         i = Image.open(form.image.data)
         image = np.array(i)
-
+        print(np.max(image))
         image = tf.cast(image, tf.float32)
         image = tf.image.resize(image, (224, 224))
         preprocessed_image = tf.keras.applications.vgg16.preprocess_input(image)
         preprocessed_image = preprocessed_image[None, ...]
-
+        print(np.max(preprocessed_image))
         image_probs = pretrained_model.predict(preprocessed_image)
         _, image_class, class_confidence = get_imagenet_label(image_probs)
 
@@ -165,9 +165,17 @@ def attack():
 
         adv, adv_preds = generate_untargeted_adversary(pretrained_model, preprocessed_image, label, epsilon, epochs)
 
-        _, adv_class, adv_confidence = get_imagenet_label(adv_preds[-1])
+        _, adv__class, adv__confidence = get_imagenet_label(adv_preds[-1])
 
         decoded_adv = deprocess_img(adv)
+        print(np.max(decoded_adv))
+        image = tf.cast(decoded_adv, tf.float32)
+        image = tf.image.resize(image, (224, 224))
+        preprocessed_image = tf.keras.applications.vgg16.preprocess_input(image)
+        preprocessed_image = preprocessed_image[None, ...]
+        image_probs = pretrained_model.predict(preprocessed_image)
+        _, adv_class, adv_confidence = get_imagenet_label(image_probs)
+        print(adv_class, adv_confidence)
 
         random_hex = secrets.token_hex(8)
         _, f_ext = os.path.splitext(form.image.data.filename)

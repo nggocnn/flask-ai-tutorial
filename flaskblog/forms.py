@@ -97,7 +97,7 @@ class FGSMModelForm(FlaskForm):
     )
 
     epsilon = StringField(
-        'Input epsilon to attack',
+        'Input modification step to attack',
         validators=[DataRequired()]
     )
 
