@@ -1,10 +1,10 @@
-from cProfile import label
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flaskblog.models import User
+
 
 
 class RegistrationForm(FlaskForm):
@@ -32,12 +32,14 @@ class RegistrationForm(FlaskForm):
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user:
-            raise ValidationError('That username is taken. Please choose a different one.')
+            raise ValidationError(
+                'That username is taken. Please choose a different one.')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user:
-            raise ValidationError('That email is taken. Please choose a different one.')
+            raise ValidationError(
+                'That email is taken. Please choose a different one.')
 
 
 class LoginForm(FlaskForm):
@@ -51,7 +53,7 @@ class LoginForm(FlaskForm):
     )
 
     remember = BooleanField('Remember Me')
-    
+
     submit = SubmitField('Login')
 
 
@@ -69,7 +71,7 @@ class UpdateAccountForm(FlaskForm):
     picture = FileField(
         'Update Your Profile Picture',
         validators=[FileAllowed(['jpg', 'jpeg', 'png'])]
-        )
+    )
 
     submit = SubmitField('Update')
 
@@ -77,33 +79,12 @@ class UpdateAccountForm(FlaskForm):
         if username.data != current_user.username:
             user = User.query.filter_by(username=username.data).first()
             if user:
-                raise ValidationError('That username is taken. Please choose a different one.')
+                raise ValidationError(
+                    'That username is taken. Please choose a different one.')
 
     def validate_email(self, email):
         if email.data != current_user.email:
             user = User.query.filter_by(email=email.data).first()
             if user:
-                raise ValidationError('That email is taken. Please choose a different one.')
-
-class FGSMModelForm(FlaskForm):
-    image = FileField(
-        'Input image to attack',
-        validators=[DataRequired(),FileAllowed(['jpg', 'jpeg', 'png'])]
-        )
-
-    label = StringField(
-        'Input label to attack',
-        validators=[DataRequired()]
-    )
-
-    epsilon = StringField(
-        'Input modification step to attack',
-        validators=[DataRequired()]
-    )
-
-    epochs = StringField(
-        'Input epochs to attack',
-        validators=[DataRequired()]
-    )
-
-    submit = SubmitField('Attack')
+                raise ValidationError(
+                    'That email is taken. Please choose a different one.')

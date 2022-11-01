@@ -1,99 +1,99 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="content-section">
-        <form method="POST" action="" enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">FGSM</legend>
-                <div class="form-group">
-                    {{ form.image.label() }}
-                    {{ form.image(class="form-control-file") }}
-                    {% if form.image.errors %}
-                        {% for error in form.image.errors %}
-                            <span class="text-danger">{{ error }}</span></br>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.label.label(class="form-control-label") }}
-                    {% if form.label.errors %}
-                        {{ form.label(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.label.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.label(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.epsilon.label(class="form-control-label") }}
-                    {% if form.epsilon.errors %}
-                        {{ form.epsilon(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.epsilon.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.epsilon(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.epochs.label(class="form-control-label") }}
-                    {% if form.epochs.errors %}
-                        {{ form.epochs(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.epochs.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.epochs(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-            </fieldset>
+<div class="content-section">
+    <form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">FGSM</legend>
             <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
-            </div>
-        </form>
-        <div class="media">
-            {% if input_image_file %}
-                <img src="{{ input_image_file }}" alt="input image" class="mt-4 mr-4">
-            {% endif %}
-            <div class="media-body mt-4">
-                {% if origin_class %}
-                    <small class="text-muted">Label: {{ origin_class }}</small>
-                {% endif %}
-                <br>
-                {% if origin_conf %}
-                    <small class="text-muted">Confident: {{ origin_conf }}</small>
-                {% endif %}
-                <br>
-                {% if epsilon %}
-                    <small class="text-muted">Epsilon: {{ epsilon }}</small>
-                {% endif %}
-                <br>
-                {% if epochs %}
-                    <small class="text-muted">Epochs: {{ epochs }}</small>
+                {{ form.image.label() }}
+                {{ form.image(class="form-control-file") }}
+                {% if form.image.errors %}
+                    {% for error in form.image.errors %}
+                        <span class="text-danger">{{ error }}</span></br>
+                    {% endfor %}
                 {% endif %}
             </div>
+            <div class="form-group">
+                {{ form.label.label(class="form-control-label") }}
+                    {% if form.label.errors %}
+                    {{ form.label(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.label.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.label(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.epsilon.label(class="form-control-label") }}
+                {% if form.epsilon.errors %}
+                    {{ form.epsilon(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.epsilon.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.epsilon(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.epochs.label(class="form-control-label") }}
+                {% if form.epochs.errors %}
+                    {{ form.epochs(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.epochs.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.epochs(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
         </div>
-        <div class="media">
-            {% if adv_file %}
-                <img src="{{ adv_file }}" alt="adv image" class="mt-4 mr-4">
+    </form>
+    <div class="media">
+        {% if input_image_file %}
+        <img src="{{ input_image_file }}" alt="input image" class="mt-4 mr-4">
+        {% endif %}
+        <div class="media-body mt-4">
+            {% if origin_class %}
+                <small class="text-muted">Label: {{ origin_class }}</small>
             {% endif %}
-            <div class="media-body mt-4">
-                {% if adv_class %}
-                    <small class="text-muted">Label: {{ adv_class }}</small>
-                {% endif %}
-                <br>
-                {% if adv_conf %}
-                    <small class="text-muted">Confident: {{ adv_conf }}</small>
-                {% endif %}
-                <br>
-            </div>
+            <br>
+            {% if origin_conf %}
+                <small class="text-muted">Confident: {{ origin_conf }}</small>
+            {% endif %}
+            <br>
+            {% if epsilon %}
+                <small class="text-muted">Epsilon: {{ epsilon }}</small>
+            {% endif %}
+            <br>
+            {% if epochs %}
+                <small class="text-muted">Epochs: {{ epochs }}</small>
+            {% endif %}
         </div>
     </div>
+    <div class="media">
+        {% if adv_file %}
+            <img src="{{ adv_file }}" alt="adv image" class="mt-4 mr-4">
+        {% endif %}
+        <div class="media-body mt-4">
+            {% if adv_class %}
+                <small class="text-muted">Label: {{ adv_class }}</small>
+            {% endif %}
+            <br>
+            {% if adv_conf %}
+                <small class="text-muted">Confident: {{ adv_conf }}</small>
+            {% endif %}
+            <br>
+        </div>
+    </div>
+</div>
 {% endblock content %}
