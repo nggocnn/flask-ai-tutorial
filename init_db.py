@@ -1,5 +1,5 @@
 from flaskblog import db, create_app
-from flaskblog.models import User, Post
+from flaskblog.models import User, Post, OriginImage, AdvImage
 
 app = create_app()
 
